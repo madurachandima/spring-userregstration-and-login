@@ -5,9 +5,12 @@ import com.madura.spring.user.registration.and.login.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class AppController {
@@ -36,7 +39,9 @@ public class AppController {
     }
 
     @GetMapping("/list_users")
-    public String viewListUsers() {
+    public String viewListUsers(Model model) {
+        List<User> userList = userRepository.findAll();
+        model.addAttribute("userList",userList);
         return "users";
     }
 }
